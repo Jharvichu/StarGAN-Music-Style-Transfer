@@ -1,0 +1,8 @@
+venv/
+.venv/
+__pycache__/
+*.tar.gz
+*.zip
+lpd_5/
+dataset_limpio/
+*.npz
