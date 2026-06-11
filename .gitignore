@@ -4,5 +4,7 @@ __pycache__/
 *.tar.gz
 *.zip
 lpd_5/
-dataset_limpio/
+dataset_limpio_5/
 *.npz
+lpd_17/
+dataset_limpio_17/
