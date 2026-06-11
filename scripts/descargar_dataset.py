@@ -36,10 +36,12 @@ def main():
             nombre = dataset["nombre"]
             print(f"{turquesaColor}[*] Procesando: {nombre}{finColor}")
             print(f"{turquesaColor}\t[+] Descargando desde Google Drive...{finColor}")
+
             # Descargar archivo
             gdown.download(url, archivo_destino, quiet=False)
             print(f"{verdeColor}\t\t[+] Descarga completada con éxito.{finColor}")
             print(f"{turquesaColor}\t[+] Descomprimiendo {archivo_destino}...{finColor}")
+
             # Descomprimir el archivo .tar.gz de forma limpia
             with tarfile.open(archivo_destino, 'r:gz') as tar:
                 if hasattr(tarfile, 'data_filter'):
@@ -47,10 +49,13 @@ def main():
                 else:
                     tar.extractall()
             print(f"\t\t{verdeColor}[+] Descompresión exitosa.{finColor}")
+
             # Borrar archivo comprimido
             os.remove(archivo_destino) 
             print(f"\t{amarilloColor}[!] Archivo temporal {archivo_destino} eliminado.{finColor}\n")
+
         print(f"{verdeColor}[+] Todos los datasets fueron descargados y extraídos.{finColor}\n")
+
     except KeyboardInterrupt:
         print(f"\n\n{amarilloColor}[!] Saliendo...{finColor}\n")
         sys.exit(1)

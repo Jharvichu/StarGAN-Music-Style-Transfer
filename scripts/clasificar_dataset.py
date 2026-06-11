@@ -19,12 +19,12 @@ DATASETS = [
     {
         "nombre": "LPD-5",
         "origen": "lpd_5/lpd_5_cleansed",
-        "destino": "dataset_limpio_5"
+        "destino": "datasets_clasificados/lpd_5"
     },
     {
         "nombre": "LPD-17",
         "origen": "lpd_17/lpd_17_cleansed",
-        "destino": "dataset_limpio_17"
+        "destino": "datasets_clasificados/lpd_17"
     }
 ]
 
@@ -32,6 +32,7 @@ def main():
     diccionario_ids = {}
     archivos_txt = glob.glob(os.path.join(ruta_txts, '*.txt'))
     print(f"{turquesaColor}[+] Mapeando géneros desde Tagtraum...{finColor}")
+
     try:
         # Leer los .txt y armar diccionario
         for ruta in archivos_txt:
@@ -44,21 +45,25 @@ def main():
             print(f"\t{verdeColor}[+]{finColor} {nombre_genero} mapeado.")
         total_ids = len(diccionario_ids)
         print(f"\n{turquesaColor}[+] Total de IDs únicos en diccionario: {total_ids}{finColor}\n")
+
         # Recorrer los datasets configurados
         for dataset in DATASETS:
             ruta_origen = dataset["origen"]
             ruta_salida = dataset["destino"]
             nombre = dataset["nombre"]
             print(f"{turquesaColor}[*] Procesando dataset: {nombre}{finColor}")
+
             # Verificar si la carpeta del dataset existe
             if not os.path.exists(ruta_origen):
                 print(f"\t{amarilloColor}[!] No se encontró la carpeta '{ruta_origen}'. Saltando dataset...{finColor}\n")
                 continue
             print(f"\t{turquesaColor}[+] Extrayendo y clasificando archivos .npz...{finColor}")
+
             # Crear carpetas de salida
             for genero in set(diccionario_ids.values()):
                 os.makedirs(os.path.join(ruta_salida, genero), exist_ok=True)
             archivos_copiados = 0
+
             # Recorrer y copiar
             for raiz, _, archivos in os.walk(ruta_origen):
                 for archivo in archivos:
@@ -73,7 +78,9 @@ def main():
                             if archivos_copiados % 500 == 0:
                                 print(f"\t{amarilloColor}[*] Se han clasificado {archivos_copiados} canciones...{finColor}")
             print(f"\t{verdeColor}[+] Proceso de {nombre} completado. {archivos_copiados} canciones en: {ruta_salida}.{finColor}\n")
+            
         print(f"{verdeColor}[+] Toda la clasificación ha finalizado con éxito{finColor}\n")
+        
     except KeyboardInterrupt:
         print(f"\n\n{amarilloColor}[!] Saliendo...{finColor}\n")
         sys.exit(1)
