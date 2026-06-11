@@ -1,10 +1,15 @@
+# Entornos
 venv/
 .venv/
 __pycache__/
+
+# Archivos comprimidos
 *.tar.gz
 *.zip
-lpd_5/
-dataset_limpio_5/
 *.npz
-lpd_17/
+
+# Datasets
 dataset_limpio_17/
+dataset_limpio_5/
+lpd_17/
+lpd_5/
